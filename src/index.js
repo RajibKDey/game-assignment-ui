@@ -12,8 +12,8 @@ import { Provider } from "react-redux";
 import createSagaMiddleware from "redux-saga";
 import { composeWithDevTools } from "redux-devtools-extension";
 import rootSaga from "./services/sagas";
-// import Axios from "axios";
-// import { unauthError } from "./serices/login/action";
+import Axios from "axios";
+import { unAuthError } from "./services/login/action";
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
@@ -22,25 +22,25 @@ const store = createStore(
 );
 sagaMiddleware.run(rootSaga);
 
-// Axios.interceptors.response.use(
-//   (response) => {
-//     if (false) {
-//       store.dispatch(unauthError());
-//     }
-//     return response;
-//   },
-//   (err) => {
-//     if (false) {
-//       store.dispatch(unauthError());
-//     }
-//     return Promise.reject(err);
-//   }
-// );
+Axios.interceptors.response.use(
+  (response) => {
+    if (false) {
+      store.dispatch(unAuthError());
+    }
+    return response;
+  },
+  (err) => {
+    if (false) {
+      store.dispatch(unAuthError());
+    }
+    return Promise.reject(err);
+  }
+);
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ThemeProvider theme={Themes}>
+      <ThemeProvider theme={Themes.light}>
         <App />
       </ThemeProvider>
     </Provider>
