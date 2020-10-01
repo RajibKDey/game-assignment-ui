@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Paper, Button, Typography, makeStyles } from "@material-ui/core";
+import {
+  Grid,
+  Paper,
+  Button,
+  Typography,
+  makeStyles,
+  Card,
+} from "@material-ui/core";
 import classnames from "classnames";
 import Game from "../../components/Game";
 import TodayAttempts from "../../components/TodayAttempts";
@@ -9,8 +16,8 @@ import BackdropOverlay from "../../components/Backdrop";
 
 const useStyles = makeStyles((theme) => ({
   dimension: {
-    height: "100vh",
     width: "100%",
+    height: "100vh",
   },
   padding: {
     padding: theme.spacing(2),
@@ -24,7 +31,20 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   containerBackground: {
-    backgroundColor: "#DCDCDC",
+    backgroundColor: "#D7B535",
+  },
+  item: {
+    boxSizing: "border-box",
+    padding: "5px",
+  },
+  card: {
+    boxSizing: "border-box",
+    padding: "5px",
+    width: "100%",
+    height: "100%",
+  },
+  cardBackground: {
+    backgroundColor: "wheat",
   },
 }));
 
@@ -40,12 +60,12 @@ export default function Dashboard() {
   const dataHighScore = useSelector((state) => state.highScore.data);
   const codeHighScore = useSelector((state) => state.highScore.code);
 
-  const [highScoreValue, setHighScoreValue] = useState([]);
+  const [highScoreValue, setHighScoreValue] = useState(0);
   useEffect(() => {
     if (dataHighScore) {
       setHighScoreValue(dataHighScore);
-      dispatch(resetHighScore());
     }
+    dispatch(resetHighScore());
   }, [codeHighScore]);
 
   const handleLogout = () => {
@@ -70,14 +90,33 @@ export default function Dashboard() {
           </Button>
         </Grid>
         <Grid container justify="center" className={classes.padding}>
-          <Typography variant="h3">Highscore: {highScoreValue}</Typography>
+          <Card className={classnames(classes.padding, classes.cardBackground)}>
+            <Typography variant="h3">
+              High Score: {highScoreValue ? highScoreValue : 0}
+            </Typography>
+          </Card>
         </Grid>
         <Grid container justify="center" className={classes.padding}>
-          <Grid item lg={9} md={9} className={classes.flexProperties}>
-            <Game />
+          <Grid
+            item
+            lg={9}
+            md={9}
+            className={classnames(classes.flexProperties, classes.item)}
+          >
+            <Card
+              className={classnames(
+                classes.card,
+                classes.flexProperties,
+                classes.cardBackground
+              )}
+            >
+              <Game />
+            </Card>
           </Grid>
-          <Grid item lg={3} md={9}>
-            <TodayAttempts />
+          <Grid item lg={3} md={3} className={classes.item}>
+            <Card className={classnames(classes.card, classes.cardBackground)}>
+              <TodayAttempts />
+            </Card>
           </Grid>
         </Grid>
       </Paper>

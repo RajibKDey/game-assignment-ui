@@ -15,6 +15,9 @@ const useStyles = makeStyles((theme) => ({
   height: {
     height: "100%",
   },
+  backgroundPurple: {
+    backgroundColor: "#5F6F44",
+  },
 }));
 
 var myGameArea;
@@ -165,30 +168,58 @@ export default function Game() {
   }
 
   function moveup(e) {
-    myGamePiece.speedY = -2;
+    if (myGamePiece !== undefined) {
+      myGamePiece.speedY = -2;
+    }
   }
 
   function movedown() {
-    myGamePiece.speedY = 2;
+    if (myGamePiece !== undefined) {
+      myGamePiece.speedY = 2;
+    }
   }
 
   function moveleft() {
-    myGamePiece.speedX = -2;
+    if (myGamePiece !== undefined) {
+      myGamePiece.speedX = -2;
+    }
   }
 
   function moveright() {
-    myGamePiece.speedX = 2;
+    if (myGamePiece !== undefined) {
+      myGamePiece.speedX = 2;
+    }
   }
 
   function clearmove(e) {
-    myGamePiece.speedX = 0;
-    myGamePiece.speedY = 0;
+    if (myGamePiece !== undefined) {
+      myGamePiece.speedX = 0;
+      myGamePiece.speedY = 0;
+    }
   }
 
   useEffect(() => {
-    window.addEventListener(
-      "keydown",
-      function (e) {
+    if (myGamePiece !== undefined) {
+      window.addEventListener(
+        "keydown",
+        function (e) {
+          if (e.key === "ArrowUp") {
+            moveup();
+          } else if (e.key === "ArrowLeft") {
+            moveleft();
+          } else if (e.key === "ArrowRight") {
+            moveright();
+          } else if (e.key === "ArrowDown") {
+            movedown();
+          }
+        },
+        false
+      );
+      window.addEventListener("keyup", function (e) {
+        clearmove();
+      });
+    } else {
+      window.removeEventListener("keydown", function (e) {
         if (e.key === "ArrowUp") {
           moveup();
         } else if (e.key === "ArrowLeft") {
@@ -198,13 +229,12 @@ export default function Game() {
         } else if (e.key === "ArrowDown") {
           movedown();
         }
-      },
-      false
-    );
-    window.addEventListener("keyup", function (e) {
-      clearmove();
-    });
-  }, []);
+      });
+      window.removeEventListener("keyup", function (e) {
+        clearmove();
+      });
+    }
+  }, [myGamePiece]);
 
   const loadingSaveScore = useSelector((state) => state.saveScore.loading);
   const successSaveScore = useSelector((state) => state.saveScore.success);
@@ -239,22 +269,22 @@ export default function Game() {
       />
 
       <Grid container>
-        <Grid item lg={12}>
+        <Grid item lg={12} md={12} sm={12}>
           <Grid container justify="center">
             {fetchTodayScores.length === 10 ? (
               <Grid
                 container
+                className={classnames(classes.backgroundPurple, classes.height)}
                 style={{
                   width: "720px",
                   height: "480px",
                 }}
-                className={classes.height}
                 alignItems="center"
                 justify="center"
               >
                 <Typography variant="h6">
                   Cant do more than 10 attempts in a day. Please come back
-                  tomorrow
+                  tomorrow.
                 </Typography>
               </Grid>
             ) : (
@@ -272,6 +302,7 @@ export default function Game() {
                 ></div>
                 <div
                   id="canvascontainer"
+                  className={classes.backgroundPurple}
                   style={{
                     width: "720px",
                     height: "480px",
@@ -281,7 +312,7 @@ export default function Game() {
             )}
           </Grid>
         </Grid>
-        <Grid item lg={12}>
+        <Grid item lg={12} md={12} sm={12}>
           <Grid container justify="center" className={classes.padding}>
             {!started ? (
               <Button

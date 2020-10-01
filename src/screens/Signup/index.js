@@ -136,10 +136,16 @@ export default function Signup() {
       />
       <Paper elevation={0}>
         <Grid container className={classes.container}>
-          <Grid item lg={12} className={classes.headerContainer}>
+          <Grid
+            item
+            lg={12}
+            md={12}
+            sm={12}
+            className={classes.headerContainer}
+          >
             <Typography variant="h5">Signup</Typography>
           </Grid>
-          <Grid item lg={12} className={classes.paddingBody}>
+          <Grid item lg={12} md={12} sm={12} className={classes.paddingBody}>
             <form className="login-container" onSubmit={signIn}>
               <p className={classes.paraPadding}>
                 <input

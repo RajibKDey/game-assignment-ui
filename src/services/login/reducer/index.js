@@ -40,7 +40,9 @@ export default function loginReducer(state = initialState, action) {
       };
     case ACTION_TYPES.LOGIN_ERROR:
       return {
+        success: action.payload.success,
         ...state,
+        code: true,
         loading: false,
         error: true,
         message: action.payload.message,

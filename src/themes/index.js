@@ -62,7 +62,7 @@ const lightTheme = createMuiTheme({
   //   danger: 'orange',
   // },
   typography: {
-    fontFamily: ["Roboto", "Raleway", "sans-serif"].join(","),
+    fontFamily: ["Raleway", "sans-serif", "Montserrat", "Roboto"].join(","),
   },
 });
 

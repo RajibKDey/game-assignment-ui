@@ -15,7 +15,7 @@ function* workLogin(action) {
       payload: resultData.data,
     });
   } catch (err) {
-    yield put({ type: ACTION_TYPES.LOGIN_ERROR, payload: err.response });
+    yield put({ type: ACTION_TYPES.LOGIN_ERROR, payload: err.response.data });
   }
 }
 

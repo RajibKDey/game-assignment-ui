@@ -108,6 +108,19 @@ export default function Login() {
 
   const loadingLogin = useSelector((state) => state.login.loading);
   const authenticated = useSelector((state) => state.login.isAuthenticated);
+  const code = useSelector((state) => state.login.code);
+  const success = useSelector((state) => state.login.success);
+  const message = useSelector((state) => state.login.message);
+
+  const [openAlert, setOpenAlert] = useState(false);
+  useEffect(() => {
+    if (!success && message) setOpenAlert(true);
+  }, [code]);
+
+  const closeNotify = () => {
+    setOpenAlert(false);
+    dispatch(resetLogin());
+  };
 
   useEffect(() => {
     if (authenticated) {
@@ -118,12 +131,24 @@ export default function Login() {
   return (
     <>
       <BackdropOverlay open={loadingLogin} color="inherit" />
+      <AlertNotify
+        open={openAlert}
+        message={message}
+        status={success ? "success" : "error"}
+        onClose={closeNotify}
+      />
       <Paper elevation={0}>
         <Grid container className={classes.container}>
-          <Grid item lg={12} className={classes.headerContainer}>
+          <Grid
+            item
+            lg={12}
+            md={12}
+            sm={12}
+            className={classes.headerContainer}
+          >
             <Typography variant="h5">Login</Typography>
           </Grid>
-          <Grid item lg={12} className={classes.paddingBody}>
+          <Grid item lg={12} md={12} sm={12} className={classes.paddingBody}>
             <form className="login-container" onSubmit={signIn}>
               <p className={classes.paraPadding}>
                 <input

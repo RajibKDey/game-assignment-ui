@@ -6,6 +6,7 @@ import {
   resetTodayAttempt,
 } from "../../services/todayAttempt/action";
 import BackdropOverlay from "../Backdrop";
+import classnames from "classnames";
 
 const useStyles = makeStyles((theme) => ({
   padding: {
@@ -16,6 +17,9 @@ const useStyles = makeStyles((theme) => ({
   },
   margin: {
     marginBottom: theme.spacing(1),
+  },
+  backgroundYellow: {
+    backgroundColor: "#997764",
   },
 }));
 
@@ -37,33 +41,37 @@ export default function TodayAttempts() {
   useEffect(() => {
     if (dataTodayAttempt) {
       setAttempt(dataTodayAttempt);
-      dispatch(resetTodayAttempt());
     }
+    dispatch(resetTodayAttempt());
   }, [codeTodayAttempt]);
 
   return (
     <>
       <BackdropOverlay open={loadingTodayAttempt} color="inherit" />
       <Grid container justify="center">
-        <Grid item lg={12}>
+        <Grid item lg={12} md={12} sm={12}>
           <Grid container justify="center" className={classes.margin}>
-            <Typography variant="h4">Todays Attempts</Typography>
+            <Typography variant="h5">
+              <b>Today's Attempts</b>
+            </Typography>
           </Grid>
           {attempt &&
             attempt.map((row, index) => (
-              <Card className={classes.margin}>
+              <Card
+                className={classnames(classes.margin, classes.backgroundYellow)}
+              >
                 <Grid
                   container
                   justify="center"
                   alignItems="center"
                   className={classes.padding}
                 >
-                  <Grid item lg={6}>
+                  <Grid item lg={6} md={6} sm={12}>
                     <Grid container justify="center">
                       <Typography variant="h6">Attempt {index + 1}:</Typography>
                     </Grid>
                   </Grid>
-                  <Grid item lg={6}>
+                  <Grid item lg={6} md={6} sm={12}>
                     <Grid container justify="center">
                       <Typography variant="body1">
                         <b>{row}</b>
