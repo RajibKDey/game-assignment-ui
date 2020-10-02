@@ -10,6 +10,9 @@ import classnames from "classnames";
 
 const useStyles = makeStyles((theme) => ({
   padding: {
+    padding: theme.spacing(2),
+  },
+  padding1: {
     padding: theme.spacing(1),
   },
   width: {
@@ -18,8 +21,12 @@ const useStyles = makeStyles((theme) => ({
   margin: {
     marginBottom: theme.spacing(1),
   },
-  backgroundYellow: {
-    backgroundColor: "#997764",
+  background: {
+    backgroundColor: "wheat",
+    boxShadow: "0 0 10px 0 #000",
+  },
+  fontColor: {
+    color: "white",
   },
 }));
 
@@ -50,30 +57,32 @@ export default function TodayAttempts() {
       <BackdropOverlay open={loadingTodayAttempt} color="inherit" />
       <Grid container justify="center">
         <Grid item lg={12} md={12} sm={12}>
-          <Grid container justify="center" className={classes.margin}>
-            <Typography variant="h5">
+          <Grid
+            container
+            justify="center"
+            className={classnames(classes.margin, classes.padding)}
+          >
+            <Typography variant="h6" className={classes.fontColor}>
               <b>Today's Attempts</b>
             </Typography>
           </Grid>
           {attempt &&
             attempt.map((row, index) => (
-              <Card
-                className={classnames(classes.margin, classes.backgroundYellow)}
-              >
+              <Card className={classnames(classes.margin, classes.background)}>
                 <Grid
                   container
                   justify="center"
                   alignItems="center"
-                  className={classes.padding}
+                  className={classes.padding1}
                 >
                   <Grid item lg={6} md={6} sm={12}>
                     <Grid container justify="center">
-                      <Typography variant="h6">Attempt {index + 1}:</Typography>
+                      <Typography variant="h6">Score {index + 1}:</Typography>
                     </Grid>
                   </Grid>
                   <Grid item lg={6} md={6} sm={12}>
                     <Grid container justify="center">
-                      <Typography variant="body1">
+                      <Typography variant="h6">
                         <b>{row}</b>
                       </Typography>
                     </Grid>

@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
   },
   background: {
-    backgroundColor: "#393A34",
+    backgroundColor: "#171717",
   },
   flexProperties: {
     display: "flex",
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   containerBackground: {
-    backgroundColor: "#D7B535",
+    backgroundColor: "#222222",
   },
   item: {
     boxSizing: "border-box",
@@ -44,7 +44,10 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
   },
   cardBackground: {
-    backgroundColor: "wheat",
+    backgroundColor: "#5C5C5C",
+  },
+  fontColor: {
+    color: "white",
   },
 }));
 
@@ -91,7 +94,7 @@ export default function Dashboard() {
         </Grid>
         <Grid container justify="center" className={classes.padding}>
           <Card className={classnames(classes.padding, classes.cardBackground)}>
-            <Typography variant="h3">
+            <Typography variant="h4" className={classes.fontColor}>
               High Score: {highScoreValue ? highScoreValue : 0}
             </Typography>
           </Card>

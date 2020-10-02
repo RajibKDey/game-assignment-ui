@@ -13,10 +13,10 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
   },
   height: {
-    height: "100%",
+    height: "700px",
   },
-  backgroundPurple: {
-    backgroundColor: "#5F6F44",
+  background: {
+    backgroundColor: "#27A0D8",
   },
 }));
 
@@ -268,16 +268,61 @@ export default function Game() {
         onClose={closeNotify}
       />
 
-      <Grid container>
-        <Grid item lg={12} md={12} sm={12}>
+      <Grid container className={classes.height} alignItems="center">
+        <Grid item lg={12} md={12} sm={12} style={{ height: "480px" }}>
           <Grid container justify="center">
-            {fetchTodayScores.length === 10 ? (
+            {!started ? (
               <Grid
                 container
-                className={classnames(classes.backgroundPurple, classes.height)}
+                justify="center"
+                alignItems="center"
+                className={classes.padding}
                 style={{
                   width: "720px",
                   height: "480px",
+                  position: "absolute",
+                  zIndex: 1,
+                }}
+              >
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={startGame}
+                  disabled={!(fetchTodayScores.length < 10)}
+                >
+                  Start
+                </Button>
+              </Grid>
+            ) : (
+              <Grid
+                container
+                justify="flex-end"
+                className={classes.padding}
+                style={{
+                  width: "720px",
+                  position: "absolute",
+                  zIndex: 1,
+                }}
+              >
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={restartGame}
+                  disabled={!(fetchTodayScores.length < 10)}
+                >
+                  Restart
+                </Button>
+              </Grid>
+            )}
+
+            {fetchTodayScores.length === 10 ? (
+              <Grid
+                container
+                className={classes.background}
+                style={{
+                  width: "720px",
+                  height: "480px",
+                  position: "absolute",
                 }}
                 alignItems="center"
                 justify="center"
@@ -302,36 +347,13 @@ export default function Game() {
                 ></div>
                 <div
                   id="canvascontainer"
-                  className={classes.backgroundPurple}
+                  className={classes.background}
                   style={{
                     width: "720px",
                     height: "480px",
                   }}
                 ></div>
               </>
-            )}
-          </Grid>
-        </Grid>
-        <Grid item lg={12} md={12} sm={12}>
-          <Grid container justify="center" className={classes.padding}>
-            {!started ? (
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={startGame}
-                disabled={!(fetchTodayScores.length < 10)}
-              >
-                Start
-              </Button>
-            ) : (
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={restartGame}
-                disabled={!(fetchTodayScores.length < 10)}
-              >
-                Restart
-              </Button>
             )}
           </Grid>
         </Grid>
